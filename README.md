@@ -1,6 +1,6 @@
 # Percepto
 
-The goal of this assignment is to write a Python script that automates tasks on Bestbuy website, covering both UI testing
+The goal of this assignment is to write a Python script that automates tasks on Bestbuy website, covering UI testing
 using Selenium.
 
 This solution has a test file - test_best_buy.py - under src.tests, which contains several tests' scenarious.
