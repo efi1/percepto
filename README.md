@@ -1,4 +1,4 @@
-# pythonMProject
+# Percepto
 
 The goal of this assignment is to write a Python script that automates tasks on Bestbuy website, covering both UI testing
 using Selenium.
