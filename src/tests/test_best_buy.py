@@ -21,7 +21,7 @@ def test_suggested_products_changed(web_client, cfg_test, clean_search_box):
     assert first_product != second_product, F"both selected items are wrongly equalled: {first_product}"
 
 
-def test_price_exist_and_30px(web_client, cfg_test, clean_search_box):
+def test_price_exist_font_size(web_client, cfg_test, clean_search_box):
     """ verify that for a price exist for a selected product and verify its fonts size """
     web_client.enter_search_term(settings.search_term)
     product_selection = web_client.return_product_suggestion(cfg_test.product_location_in_list)
