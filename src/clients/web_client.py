@@ -53,8 +53,13 @@ class BestBuy(BasePage):
         return search_inp
 
     @BaseElements.alerts_handling
-    def return_product_suggestion(self, suggested_order: int) -> object:
-        element = self.base_elements.find(By.CSS_SELECTOR, F".v-p-left-xxs:nth-child({suggested_order}) > .text-info "
+    def return_product_suggestion(self, suggested_location: int) -> object:
+        """
+        takes an input of a location within the suggestion list and returns an element of a selected product
+        :param suggested_location:
+        :return: the third product of a given suggested location in the list
+        """
+        element = self.base_elements.find(By.CSS_SELECTOR, F".v-p-left-xxs:nth-child({suggested_location}) > .text-info "
                                                            F"> span", expected_condition='presence')
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
@@ -100,4 +105,8 @@ class BestBuy(BasePage):
         if self.base_elements.is_exist(By.ID, "gh-search-input", expected_condition='clickable'):
             search_inp = self.base_elements.find(By.ID, "gh-search-input", expected_condition='clickable')
             search_inp.send_keys([Keys.BACKSPACE] * 20)
+
+
+
+
 
