@@ -116,6 +116,7 @@ class BaseElements(object):
                 if self.base_elements.is_exist(By.ID, "gh-search-input", expected_condition='clickable'):
                     search_inp = self.base_elements.find(By.ID, "gh-search-input", expected_condition='clickable')
                     search_inp.send_keys([Keys.BACKSPACE] * 20)
+                    self.enter_search_term()
                 res = func(self, *args)
             return res
 
