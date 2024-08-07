@@ -46,7 +46,7 @@ class BestBuy(BasePage):
                                                  expected_condition='clickable')
         select_country.click()
 
-    def enter_search_term(self, search_term) -> object:
+    def enter_search_term(self, search_term='hello') -> object:
         search_inp = self.base_elements.find(By.ID, "gh-search-input", expected_condition='presence')
         search_inp.send_keys(search_term)
         time.sleep(3)
