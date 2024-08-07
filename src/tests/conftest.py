@@ -20,7 +20,7 @@ def web_client(cfg_data):
                          password=cfg_data.password)
     web_client.open_page()
     web_client.navigate_to_usa()
-    # web_client.login()
+    web_client.login()
     yield web_client
     web_client.tear_down_driver
 
