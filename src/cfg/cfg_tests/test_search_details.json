@@ -1,0 +1,14 @@
+{
+  "sections": [
+    {
+      "features": "//span[contains(text(), 'Features')]"
+    },
+    {
+      "specifications": "//button[contains(@class, 'specifications')]"
+    },
+    {
+      "questions_and_answers": "//span[contains(text(), 'Questions')]"
+    }
+  ],
+  "product_location_in_list": 2
+}

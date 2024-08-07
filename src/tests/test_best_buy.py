@@ -34,4 +34,14 @@ def test_price_exist_font_size(web_client, cfg_test, clean_search_box):
     assert fonts_size == '30px', F"fonts aren't 30px as expected. actual fonts size: {fonts_size}"
 
 
+def test_search_details(web_client, cfg_test, clean_search_box):
+    """ verify that details section appear at the screen """
+    web_client.enter_search_term(settings.search_term)
+    product_selection = web_client.return_product_suggestion(cfg_test.product_location_in_list)
+    product_selection.click()
+    for section in cfg_test.sections:
+        res = web_client.is_details_exist(''.join(section.__dict__.values()))
+        assert res is True, F"details section doesn't appear at {''.join(section.__dict__.keys())}"
+
+
 

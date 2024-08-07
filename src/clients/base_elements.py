@@ -1,8 +1,8 @@
-import time
 import logging
 from typing import Any
 
-from selenium.common import TimeoutException, ElementClickInterceptedException, NoSuchElementException
+from selenium.common import TimeoutException, ElementClickInterceptedException, NoSuchElementException, \
+    WebDriverException
 from selenium.webdriver import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -113,10 +113,12 @@ class BaseElements(object):
                                                              timeout=2):
                     LOGGER.info(F"an unexpected popup raised")
                     self.base_elements.find(By.XPATH, "//button[@id='survey_invite_no']").click()
-                if self.is_exist(By.ID, "gh-search-input", expected_condition='clickable'):
-                    search_inp = self.find(By.ID, "gh-search-input", expected_condition='clickable')
+                if self.base_elements.is_exist(By.ID, "gh-search-input", expected_condition='clickable'):
+                    search_inp = self.base_elements.find(By.ID, "gh-search-input", expected_condition='clickable')
                     search_inp.send_keys([Keys.BACKSPACE] * 20)
+                    self.enter_search_term()
                 res = func(self, *args)
             return res
 
         return wrapper
+

@@ -1,4 +1,5 @@
 import time
+from selenium.common import TimeoutException
 from src.clients.base_elements import BaseElements
 from src.clients.base_page import BasePage
 from selenium.webdriver.common.by import By
@@ -46,7 +47,7 @@ class BestBuy(BasePage):
                                                  expected_condition='clickable')
         select_country.click()
 
-    def enter_search_term(self, search_term) -> object:
+    def enter_search_term(self, search_term='hello') -> object:
         search_inp = self.base_elements.find(By.ID, "gh-search-input", expected_condition='presence')
         search_inp.send_keys(search_term)
         time.sleep(3)
@@ -59,8 +60,9 @@ class BestBuy(BasePage):
         :param suggested_location:
         :return: the third product of a given suggested location in the list
         """
-        element = self.base_elements.find(By.CSS_SELECTOR, F".v-p-left-xxs:nth-child({suggested_location}) > .text-info "
-                                                           F"> span", expected_condition='presence')
+        element = self.base_elements.find(By.CSS_SELECTOR,
+                                          F".v-p-left-xxs:nth-child({suggested_location}) > .text-info "
+                                          F"> span", expected_condition='presence')
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
         element = self.base_elements.find(By.CSS_SELECTOR, "body")
@@ -100,13 +102,33 @@ class BestBuy(BasePage):
     def get_elements_size(cls, element: object) -> int:
         return element.value_of_css_property("font-size")
 
+    def is_details_exist(self, path_location: str) -> bool:
+        """
+        verify that details section appear at the screen.
+        :path_location: the XPATH which is used for finding the element
+        :return: True if details section appear at the screen.
+        """
+        res = False
+        try:
+            element = self.base_elements.find(By.XPATH, path_location, expected_condition='presence')
+            actions = ActionChains(self.driver)
+            actions.move_to_element(element).perform()
+            self.base_elements.find(By.XPATH, path_location, expected_condition='clickable').click()
+        except TimeoutException:
+            LOGGER.info(F"{path_location} can't be found")
+            return res
+        try:
+            self.base_elements.find_elements(By.XPATH, "//div[contains(@class, 'about-this-item')]")
+            res = True
+        except Exception as e:
+            print(e)
+            pass
+        self.base_elements.find(By.CSS_SELECTOR, ".c-close-icon:nth-child(2) > .c-close-icon-svg", expected_condition='clickable').click()
+        return res
+
     @property
     def clean_search_box(self):
         if self.base_elements.is_exist(By.ID, "gh-search-input", expected_condition='clickable'):
             search_inp = self.base_elements.find(By.ID, "gh-search-input", expected_condition='clickable')
             search_inp.send_keys([Keys.BACKSPACE] * 20)
-
-
-
-
 
