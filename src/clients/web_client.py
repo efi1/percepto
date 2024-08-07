@@ -102,6 +102,7 @@ class BestBuy(BasePage):
     def get_elements_size(cls, element: object) -> int:
         return element.value_of_css_property("font-size")
 
+    @BaseElements.alerts_handling
     def is_details_exist(self, path_location: str) -> bool:
         """
         verify that details section appear at the screen.
