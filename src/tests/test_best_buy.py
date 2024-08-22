@@ -22,7 +22,7 @@ def test_suggested_products_changed(web_client, cfg_test, clean_search_box):
 
 
 def test_price_exist_font_size(web_client, cfg_test, clean_search_box):
-    """ verify that for a price exist for a selected product and verify its fonts size """
+    """ verify that a price exist for a selected product and verify its fonts size """
     web_client.enter_search_term(settings.search_term)
     product_selection = web_client.return_product_suggestion(cfg_test.product_location_in_list)
     LOGGER.info(F"suggested product when selecting item: {cfg_test.product_location_in_list}, {product_selection.text}")
